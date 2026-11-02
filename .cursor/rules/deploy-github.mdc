@@ -1,0 +1,36 @@
+---
+description: Deploy this project to the Smart Enrollment GitHub repository when the user asks to deploy or push
+alwaysApply: false
+---
+
+# Deploy to GitHub
+
+Remote: `https://github.com/toreyakers5/Smart-Enrollment-.git`  
+Branch: `main`
+
+Deploy only when the user asks to deploy or push. Do not push on your own.
+
+## Steps
+
+1. Check `git status`, the diff, and recent commits. Do not commit secrets (`.env`, credentials, keys).
+2. If there are uncommitted project changes, commit them as part of this deploy. Do not change git config. If Git has no identity, set `GIT_AUTHOR_NAME`, `GIT_AUTHOR_EMAIL`, `GIT_COMMITTER_NAME`, and `GIT_COMMITTER_EMAIL` for that command only. Use `toreyakers5` and `toreyakers5@users.noreply.github.com`.
+3. `origin` must be the remote above. Add it if it is missing. Do not replace a different `origin` without saying so.
+4. Fetch first. If GitHub is ahead, rebase local `main` onto `origin/main` and keep this app's README when the only remote file is the one-line stub. Do not force-push.
+5. Push with a one-shot credential helper so the command does not change git config:
+
+```powershell
+git -c credential.helper=manager push -u origin main
+```
+
+6. If sign-in needs a browser or a two-factor code, stop and ask the user to finish that prompt.
+7. Reply with the repository URL and the commit that was pushed.
+
+```powershell
+# Good: normal deploy
+git fetch origin
+git rebase origin/main
+git -c credential.helper=manager push -u origin main
+
+# Bad: rewriting GitHub history
+git push --force origin main
+```
