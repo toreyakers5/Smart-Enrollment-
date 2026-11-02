@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartSpend — Official-source money guidance</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="gate" class="shell">
+      <header>
+        <p class="eyebrow">SmartSpend</p>
+        <h1>Clear money guidance from official U.S. sources</h1>
+        <p class="lede">
+          Answers cite CFPB, FDIC, FTC, IRS, and the Department of Education.
+          Choose who you are so examples match your stage — the rules do not change.
+        </p>
+      </header>
+      <div class="stage-grid" id="stages"></div>
+      <p class="fine">Educational only. Not a substitute for StudentAid.gov, IRS.gov, or a licensed advisor.</p>
+    </div>
+
+    <div id="app" class="shell hidden">
+      <header class="top">
+        <div>
+          <p class="eyebrow">SmartSpend</p>
+          <h1>Ask a question. Build the dashboard in the same prompt.</h1>
+        </div>
+        <button type="button" class="ghost" id="stage-btn">Change stage</button>
+      </header>
+      <div class="layout">
+        <section class="chat">
+          <div class="log" id="log">
+            <div class="welcome" id="welcome">
+              <p>
+                General questions are in scope. Personal “what portion of my paycheck should go to rent?” questions are not.
+                Loan math plus “build a dashboard” updates the visual without a budget link.
+              </p>
+              <div class="starters" id="starters"></div>
+            </div>
+          </div>
+          <form id="ask-form">
+            <textarea id="draft" rows="3" placeholder='Ask a general question, or include amounts and say “build a dashboard”…'></textarea>
+            <button type="submit">Ask</button>
+          </form>
+        </section>
+        <aside class="dash" id="dash"></aside>
+      </div>
+    </div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

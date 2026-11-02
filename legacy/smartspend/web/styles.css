@@ -1,0 +1,83 @@
+:root {
+  color-scheme: light;
+  --bg: #f4f1ea;
+  --bg-2: #fffdf8;
+  --ink: #1c241c;
+  --muted: #5c675c;
+  --line: #d9d2c5;
+  --accent: #1f6b4a;
+  --accent-2: #163d2e;
+  --warn: #8a4b12;
+  --warn-bg: #f8ead8;
+  --card: #ffffff;
+  font-family: "Segoe UI", Georgia, system-ui, sans-serif;
+  line-height: 1.45;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+button, textarea { font: inherit; }
+a { color: var(--accent); }
+
+.shell { max-width: 1120px; margin: 0 auto; padding: 32px 20px 48px; }
+.eyebrow { letter-spacing: 0.12em; text-transform: uppercase; font-size: 0.75rem; color: var(--accent); margin: 0 0 8px; }
+h1 { font-family: Georgia, "Times New Roman", serif; font-size: 2rem; font-weight: 500; margin: 0 0 12px; line-height: 1.2; }
+.lede, .fine, .hint, .dash-head p { color: var(--muted); }
+.hidden { display: none !important; }
+
+.stage-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 28px; }
+.stage-grid button, .starters button, .ghost, .chat form button {
+  border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  border-radius: 10px; padding: 16px; text-align: left; cursor: pointer;
+}
+.stage-grid button { display: flex; flex-direction: column; gap: 6px; min-height: 120px; }
+.stage-grid button:hover, .starters button:hover { border-color: var(--accent); }
+.stage-grid span { color: var(--muted); font-size: 0.92rem; }
+
+.top { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; margin-bottom: 20px; }
+.ghost { padding: 8px 12px; white-space: nowrap; }
+.layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr); gap: 18px; align-items: start; }
+.chat, .dash { background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
+.chat { display: flex; flex-direction: column; min-height: 640px; }
+.log { padding: 18px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+.starters { display: flex; flex-direction: column; gap: 8px; }
+.starters button { padding: 10px 12px; color: var(--muted); font-size: 0.92rem; }
+
+article { padding: 10px 12px; border-radius: 10px; background: var(--bg); }
+article.user { background: #eef6f1; }
+article > .who { display: block; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.limit { color: var(--warn); font-size: 0.8rem; margin-left: 8px; }
+.prose p { margin: 0 0 8px; white-space: pre-wrap; }
+
+.sources { list-style: none; padding: 0; margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.sources a {
+  display: inline-flex; gap: 6px; align-items: center; text-decoration: none;
+  border: 1px solid var(--line); border-radius: 999px; padding: 4px 8px; font-size: 0.78rem; background: var(--bg-2);
+}
+.sources span { font-weight: 650; color: var(--accent-2); }
+
+.chat form { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--line); }
+textarea { flex: 1; border: 1px solid var(--line); border-radius: 10px; padding: 10px; resize: vertical; background: var(--bg-2); }
+.chat form button { background: var(--accent); color: white; border-color: var(--accent); padding: 10px 16px; align-self: flex-end; }
+
+.dash { padding: 18px; position: sticky; top: 16px; }
+.dash h2 { font-size: 1.15rem; margin: 0 0 4px; }
+.dash-head { margin-bottom: 16px; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.stats div { background: var(--bg); border-radius: 10px; padding: 10px; }
+.stats span { display: block; font-size: 0.75rem; color: var(--muted); }
+.stats strong { font-size: 1.05rem; }
+.banner { background: var(--warn-bg); color: var(--warn); padding: 10px; border-radius: 8px; font-size: 0.88rem; }
+.banner.ok { background: #eef6f1; color: var(--accent-2); }
+.bar-wrap, .chart { margin-top: 16px; }
+.bar-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; }
+.bar { height: 12px; background: #eadfd0; border-radius: 99px; overflow: hidden; }
+.bar > div { height: 100%; background: var(--accent); }
+.bar-meta { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-top: 6px; }
+
+@media (max-width: 860px) {
+  .stage-grid, .layout, .stats { grid-template-columns: 1fr; }
+  .dash { position: static; }
+}
