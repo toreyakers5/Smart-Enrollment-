@@ -5,6 +5,7 @@
   "description": "Plain-language enrollment forecasts for school district leaders.",
   "type": "module",
   "scripts": {
+    "start": "vite",
     "dev": "vite",
     "typecheck": "tsc --noEmit",
     "build": "tsc --noEmit && vite build",
