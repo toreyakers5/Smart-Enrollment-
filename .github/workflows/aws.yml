@@ -8,11 +8,10 @@
 #    Replace the value of the `ECR_REPOSITORY` environment variable in the workflow below with your repository's name.
 #    Replace the value of the `AWS_REGION` environment variable in the workflow below with your repository's region.
 #
-# 2. Create an ECS task definition, an ECS cluster, and an ECS service.
-#    For example, follow the Getting Started guide on the ECS console:
-#      https://us-east-2.console.aws.amazon.com/ecs/home?region=us-east-2#/firstRun
-#    Replace the value of the `ECS_SERVICE` environment variable in the workflow below with the name you set for the Amazon ECS service.
-#    Replace the value of the `ECS_CLUSTER` environment variable in the workflow below with the name you set for the cluster.
+# 2. Create an ECS cluster and service (or use an existing service). Set `ECS_SERVICE`
+#    and `ECS_CLUSTER` in this workflow to match the ECS console. The task definition
+#    must use an ECR image URI, not a GitHub URL.
+#    Ensure IAM role `ecsTaskExecutionRole` exists (ECS first-run wizard creates it).
 #
 # 3. Store your ECS task definition as a JSON file in your repository.
 #    The format should follow the output of `aws ecs register-task-definition --generate-cli-skeleton`.
@@ -31,14 +30,12 @@ on:
     branches: [ "main" ]
 
 env:
-  AWS_REGION: MY_AWS_REGION                   # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: MY_ECR_REPOSITORY           # set this to your Amazon ECR repository name
-  ECS_SERVICE: MY_ECS_SERVICE                 # set this to your Amazon ECS service name
-  ECS_CLUSTER: MY_ECS_CLUSTER                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: MY_ECS_TASK_DEFINITION # set this to the path to your Amazon ECS task definition
-                                               # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: MY_CONTAINER_NAME           # set this to the name of the container in the
-                                               # containerDefinitions section of your task definition
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: smart-enrollment
+  ECS_SERVICE: Smart-Enrollment-git-cb71
+  ECS_CLUSTER: default
+  ECS_TASK_DEFINITION: .aws/task-definition.json
+  CONTAINER_NAME: smart-enrollment
 
 permissions:
   contents: read
@@ -59,6 +56,11 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }}
+
+    - name: Inject AWS account into task definition
+      run: |
+        ACCOUNT="$(aws sts get-caller-identity --query Account --output text)"
+        sed -i "s/AWS_ACCOUNT_ID/${ACCOUNT}/g" "${{ env.ECS_TASK_DEFINITION }}"
 
     - name: Login to Amazon ECR
       id: login-ecr
